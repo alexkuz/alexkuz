@@ -7,57 +7,77 @@
     <meta name="description" content="-_-">
     <meta name="author" content="Alexander Kuznetsov">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap" rel="stylesheet">
     <style type="text/css">
       html {
         height:  100%;
       }
+ 
       body {
+        color: #FFFFFF;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
         height: 100%;
         width: 100%;
         margin: 0;
-        padding: 0;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
+        padding: 3rem;
+        padding: clamp(1rem, 5vw, 5rem);
+        box-sizing: border-box;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-
         background-color: #001f3f;
+        font-family: 'Jost', sans-serif;
+      }
+      
+      h1 {
+         margin: 0;
+        font-size: 3em;
+        font-size: clamp(1.8em, 5vw, 3em);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+      }
+      
+      p {
+        font-size: 1.8em;
+        font-size: clamp(1.2em, 3vw, 1.8em);
+        margin: 1rem 0 2rem;
+        font-weight: 300;
+        letter-spacing: 0.01em;
       }
 
       .icons {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        gap: 1rem;
+        margin-bottom: 20vh;
       }
 
       .icon-link, .icon-link:visited {
         color: #fafafa;
         -webkit-transition: color 0.2s ease-out;
         transition: color 0.2s ease-out;
-        width:  3em;
-        height:  3em;
-
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
+        width:  2em;
+        width: clamp(1.8em, 5vw, 2em);
+        height:  2em;
       }
 
       .icon {
         display: inline-block;
         cursor: pointer;
-        width: 2em;
-        height: 2em;
+        width: 100%;
+        height: 100%;
         stroke-width: 0;
         stroke: currentColor;
         fill: currentColor;
@@ -72,7 +92,9 @@
     </style>
   </head>
   <body>
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">
+    <h1>Alexander Kuznetsov</h1>
+    <p>Frontend developer</p>
+    <svg aria-role="presentation" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">
         <symbol id="icon-mail" viewBox="0 0 32 32">
             <title>
                 mail
@@ -93,8 +115,8 @@
         </symbol>
     </svg>
     <div class="icons">
-      <a class="icon-link" href="https://github.com/alexkuz"><svg class="icon icon-github"><use xlink:href="#icon-github" /></svg></a>
-      <a class="icon-link" href="https://twitter.com/c0cl3nn0nk37"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter" /></svg></a>
-      <a class="icon-link" href="mailto:alexkuz@gmail.com"><svg class="icon icon-mail"><use xlink:href="#icon-mail" /></svg></a>
+      <a class="icon-link" href="https://github.com/alexkuz" aria-label="github"><svg class="icon icon-github" role="presentation"><use xlink:href="#icon-github" /></svg></a>
+      <a class="icon-link" href="https://twitter.com/c0cl3nn0nk37" aria-label="twitter"><svg class="icon icon-twitter" role="presentation"><use xlink:href="#icon-twitter" /></svg></a>
+      <a class="icon-link" href="mailto:alexkuz@gmail.com" aria-label="email"><svg class="icon icon-mail" role="presentation"><use xlink:href="#icon-mail" /></svg></a>
   </body>
 </html>
