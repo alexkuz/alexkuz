@@ -14,7 +14,7 @@
 			]
 		},
 		{
-			"source": "/files/application.json.gz",
+			"source": "/files/application.json.jgz",
 			"headers": [
 				{
 					"key": "Content-Encoding",

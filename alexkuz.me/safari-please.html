@@ -65,7 +65,7 @@
 		let jsonEl = document.getElementById("json-result");
 		let appBrEl = document.getElementById("app-br-result");
 
-		fetch('/files/application.json.gz').then(res => res.json()).then(json => {
+		fetch('/files/application.json.jgz').then(res => res.json()).then(json => {
 			appEl.setAttribute('data-status', 'success');
 			appEl.innerHTML = 'Success!';
 		}).catch(e => {
