@@ -27,6 +27,19 @@
 			]
 		},
 		{
+			"source": "/files/application.json.br",
+			"headers": [
+				{
+					"key": "Content-Encoding",
+					"value": "brotli"
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/octet-stream"
+				}
+			]
+		},
+		{
 			"source": "/files/json.json.gz",
 			"headers": [
 				{
