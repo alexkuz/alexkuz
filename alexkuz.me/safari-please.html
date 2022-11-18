@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Safari, please</title>
+	<style type="text/css">
+		body {
+			display: flex;
+			gap: 2rem;
+		}
+
+		section {
+			border: 1px solid lightgray;
+			padding: 2rem;
+		}
+
+		.result {
+			background: whitesmoke;
+			padding: 2rem;
+		}
+
+		.result[data-status='failure'] {
+			background: pink;
+		}
+		
+		.result[data-status='success'] {
+			background: palegreen;
+		}		
+	</style>
+</head>
+<body>
+	<section>
+		<pre>
+			Content-Type: application/octet-stream
+		</pre>
+		<div class="result" id="application-result">Loading...</div>
+	</section>
+	<section>
+		<pre>
+			Content-Type: binary/octet-stream
+		</pre>
+		<div class="result" id="binary-result">Loading...</div>
+	</section>
+	<script type="text/javascript">
+		let app = document.getElementById("application-result");
+		let bin = document.getElementById("binary-result");
+
+		fetch('/files/application.json.gz').then(res => res.json()).then(json => {
+			app.setAttribute('data-status', 'success');
+			app.innerHTML = 'Success!';
+		}).catch(e => {
+			app.setAttribute('data-status', 'failure');
+			app.innerHTML = 'Failure :(';
+		})
+
+		fetch('/files/binary.json.gz').then(res => res.json()).then(json => {
+			bin.setAttribute('data-status', 'success');
+			bin.innerHTML = 'Success!';
+		}).catch(e => {
+			bin.setAttribute('data-status', 'failure');
+			bin.innerHTML = 'Failure :(';
+		})
+	</script>
+</body>
+</html>

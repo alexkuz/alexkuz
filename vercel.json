@@ -1,0 +1,30 @@
+{
+	"headers": [
+		{
+			"source": "/files/binary.json.gz",
+			"headers": [
+				{
+					"key": "Content-Encoding",
+					"value": "gzip"
+				},
+				{
+					"key": "Content-Type",
+					"value": "binary/octet-stream"
+				}
+			]
+		},
+		{
+			"source": "/files/application.json.gz",
+			"headers": [
+				{
+					"key": "Content-Encoding",
+					"value": "gzip"
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/octet-stream"
+				}
+			]
+		}
+	]
+}
