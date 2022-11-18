@@ -50,32 +50,32 @@
 		<div class="result" id="json-result">Loading...</div>
 	</section>
 	<script type="text/javascript">
-		let app = document.getElementById("application-result");
-		let bin = document.getElementById("binary-result");
-		let json = document.getElementById("json-result");
+		let appEl = document.getElementById("application-result");
+		let binEl = document.getElementById("binary-result");
+		let jsonEl = document.getElementById("json-result");
 
 		fetch('/files/application.json.gz').then(res => res.json()).then(json => {
-			app.setAttribute('data-status', 'success');
-			app.innerHTML = 'Success!';
+			appEl.setAttribute('data-status', 'success');
+			appEl.innerHTML = 'Success!';
 		}).catch(e => {
-			app.setAttribute('data-status', 'failure');
-			app.innerHTML = 'Failure :(';
+			appEl.setAttribute('data-status', 'failure');
+			appEl.innerHTML = 'Failure :(';
 		})
 
 		fetch('/files/binary.json.gz').then(res => res.json()).then(json => {
-			bin.setAttribute('data-status', 'success');
-			bin.innerHTML = 'Success!';
+			binEl.setAttribute('data-status', 'success');
+			binEl.innerHTML = 'Success!';
 		}).catch(e => {
-			bin.setAttribute('data-status', 'failure');
-			bin.innerHTML = 'Failure :(';
+			binEl.setAttribute('data-status', 'failure');
+			binEl.innerHTML = 'Failure :(';
 		})
 
 		fetch('/files/json.json.gz').then(res => res.json()).then(json => {
-			json.setAttribute('data-status', 'success');
-			json.innerHTML = 'Success!';
+			jsonEl.setAttribute('data-status', 'success');
+			jsonEl.innerHTML = 'Success!';
 		}).catch(e => {
-			json.setAttribute('data-status', 'failure');
-			json.innerHTML = 'Failure :(';
+			jsonEl.setAttribute('data-status', 'failure');
+			jsonEl.innerHTML = 'Failure :(';
 		})
 	</script>
 </body>
