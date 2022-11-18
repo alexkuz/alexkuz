@@ -33,6 +33,7 @@
 <body>
 	<section>
 		<pre>
+			.gz
 			Content-Encoding: gzip
 			Content-Type: application/octet-stream
 		</pre>
@@ -40,32 +41,25 @@
 	</section>
 	<section>
 		<pre>
+			.jgz
 			Content-Encoding: gzip
-			Content-Type: binary/octet-stream
+			Content-Type: application/octet-stream
 		</pre>
-		<div class="result" id="bin-result">Loading...</div>
+		<div class="result" id="app-jgz-result">Loading...</div>
 	</section>
 	<section>
 		<pre>
-			Content-Encoding: gzip
-			Content-Type: application/json
-		</pre>
-		<div class="result" id="json-result">Loading...</div>
-	</section>
-	<section>
-		<pre>
-			Content-Encoding: brotli
+			Content-Encoding: br
 			Content-Type: application/octet-stream
 		</pre>
 		<div class="result" id="app-br-result">Loading...</div>
 	</section>
 	<script type="text/javascript">
 		let appEl = document.getElementById("app-result");
-		let binEl = document.getElementById("bin-result");
-		let jsonEl = document.getElementById("json-result");
+		let appJgzEl = document.getElementById("app-jgz-result");
 		let appBrEl = document.getElementById("app-br-result");
 
-		fetch('/files/application.json.jgz').then(res => res.json()).then(json => {
+		fetch('/files/application.json.gz').then(res => res.json()).then(json => {
 			appEl.setAttribute('data-status', 'success');
 			appEl.innerHTML = 'Success!';
 		}).catch(e => {
@@ -73,20 +67,12 @@
 			appEl.innerHTML = 'Failure :(';
 		})
 
-		fetch('/files/binary.json.gz').then(res => res.json()).then(json => {
-			binEl.setAttribute('data-status', 'success');
-			binEl.innerHTML = 'Success!';
+		fetch('/files/application.json.jgz').then(res => res.json()).then(json => {
+			appJgzEl.setAttribute('data-status', 'success');
+			appJgzEl.innerHTML = 'Success!';
 		}).catch(e => {
-			binEl.setAttribute('data-status', 'failure');
-			binEl.innerHTML = 'Failure :(';
-		})
-
-		fetch('/files/json.json.gz').then(res => res.json()).then(json => {
-			jsonEl.setAttribute('data-status', 'success');
-			jsonEl.innerHTML = 'Success!';
-		}).catch(e => {
-			jsonEl.setAttribute('data-status', 'failure');
-			jsonEl.innerHTML = 'Failure :(';
+			appJgzEl.setAttribute('data-status', 'failure');
+			appJgzEl.innerHTML = 'Failure :(';
 		})
 
 		fetch('/files/application.json.br').then(res => res.json()).then(json => {
