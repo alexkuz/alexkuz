@@ -14,6 +14,19 @@
 			]
 		},
 		{
+			"source": "/files/application.json.zip",
+			"headers": [
+				{
+					"key": "Content-Encoding",
+					"value": "gzip"
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/octet-stream"
+				}
+			]
+		},
+		{
 			"source": "/files/application.json.jgz",
 			"headers": [
 				{

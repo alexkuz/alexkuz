@@ -49,6 +49,14 @@
 	</section>
 	<section>
 		<pre>
+			.zip
+			Content-Encoding: gzip
+			Content-Type: application/octet-stream
+		</pre>
+		<div class="result" id="app-zip-result">Loading...</div>
+	</section>
+	<section>
+		<pre>
 			Content-Encoding: br
 			Content-Type: application/octet-stream
 		</pre>
@@ -58,6 +66,7 @@
 		let appEl = document.getElementById("app-result");
 		let appJgzEl = document.getElementById("app-jgz-result");
 		let appBrEl = document.getElementById("app-br-result");
+		let appZipEl = document.getElementById("app-zip-result");
 
 		fetch('/files/application.json.gz').then(res => res.json()).then(json => {
 			appEl.setAttribute('data-status', 'success');
@@ -73,6 +82,14 @@
 		}).catch(e => {
 			appJgzEl.setAttribute('data-status', 'failure');
 			appJgzEl.innerHTML = 'Failure :(';
+		})
+
+		fetch('/files/application.json.zip').then(res => res.json()).then(json => {
+			appZipEl.setAttribute('data-status', 'success');
+			appZipEl.innerHTML = 'Success!';
+		}).catch(e => {
+			appZipEl.setAttribute('data-status', 'failure');
+			appZipEl.innerHTML = 'Failure :(';
 		})
 
 		fetch('/files/application.json.br').then(res => res.json()).then(json => {
