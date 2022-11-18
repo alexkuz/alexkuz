@@ -25,6 +25,19 @@
 					"value": "application/octet-stream"
 				}
 			]
+		},
+		{
+			"source": "/files/json.json.gz",
+			"headers": [
+				{
+					"key": "Content-Encoding",
+					"value": "gzip"
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			]
 		}
 	]
 }
