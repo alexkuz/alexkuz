@@ -36,16 +36,33 @@
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        background-color: #001f3f;
+        background-color: #001a34;
         font-family: 'Jost', sans-serif;
       }
       
+      .card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        background: #001f3f;
+        padding: clamp(1.2rem, 3vw, 3rem) clamp(1.4rem, 4vw, 4rem);
+        margin-bottom: 10vh;
+        border-radius: 1rem;
+        box-shadow: 4px 4px 5.2px rgb(0 0 0 / 6%), 13.4px 13.4px 17px rgb(0 0 0 / 9%), 60px 60px 80px rgb(0 0 0 / 15%);
+        aspect-ratio: 3.5 / 2;
+      }
+      
       h1 {
-         margin: 0;
+        margin: 0;
         font-size: 3em;
         font-size: clamp(1.8em, 5vw, 3em);
         font-weight: 400;
         letter-spacing: 0.02em;
+        white-space: nowrap;
       }
       
       p {
@@ -61,7 +78,6 @@
         display: -ms-flexbox;
         display: flex;
         gap: 1rem;
-        margin-bottom: 20vh;
       }
 
       .icon-link, .icon-link:visited {
