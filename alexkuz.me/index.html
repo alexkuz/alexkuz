@@ -89,9 +89,19 @@
         color: #ffffff;
         transform: scale(1.1);
       }
+
+      #bg-canvas {
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+      }
     </style>
   </head>
   <body>
+    <canvas id="bg-canvas"></canvas>
     <h1>Alexander Kuznetsov</h1>
     <p>Frontend developer</p>
     <svg role="presentation" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">
@@ -125,5 +135,84 @@
       <a class="icon-link" href="https://twitter.com/_alexkuz_" aria-label="twitter"><svg class="icon icon-twitter" role="presentation"><use xlink:href="#icon-twitter" /></svg></a>
       <a class="icon-link" href="mailto:alexkuz@gmail.com" aria-label="email"><svg class="icon icon-mail" role="presentation"><use xlink:href="#icon-mail" /></svg></a>
       <a class="icon-link" href="https://bsky.app/profile/alexkuz.me" aria-label="bluesky"><svg class="icon icon-bluesky" role="presentation"><use xlink:href="#icon-bluesky" /></svg></a>
+    </div>
+    <script type="text/javascript">
+    function initCanvas() {
+     var canvas = document.getElementById("bg-canvas");
+      var gl = canvas.getContext("webgl2");
+      var vsSource = `#version 300 es
+        in vec2 position;
+        out vec2 texCoord;
+
+        void main() {
+          gl_Position = vec4(position, 0.0, 1.0);
+          texCoord = (position + 1.0) / 2.0;
+        }
+      `;
+      var fsSource = `#version 300 es
+        precision mediump float;
+        in vec2 texCoord;
+        out vec4 fragColor;
+        uniform float iTime;
+
+        vec3 backColor = vec3(0,31./255.,63./255.);
+        vec3 black = vec3(0);
+        vec3 waveColor1 = vec3(0,10./255.,40./255.);
+        vec3 waveColor2 = vec3(0,20./255.,60./255.);
+
+        float factor(vec2 uv, float speed, float shift, float k)
+        {
+          float f = -k*((uv.y-shift) + 0.05*sin(8.0*(uv.x + speed * iTime)));
+          return clamp(f, 0., 1.);
+        }
+
+        void main()
+        {
+          vec3 col1 = mix(black, waveColor1, factor(texCoord, -0.15, 0.3, 4.0));
+          vec3 col2 = mix(black, waveColor2, factor(texCoord, 0.1, 0.2, 2.5));
+          vec3 col = backColor + mix(col1, col2, 0.5);
+          fragColor = vec4(col,1.0);
+        }
+      `;
+      var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+      gl.shaderSource(vertexShader, vsSource);
+      gl.compileShader(vertexShader);
+      var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+      gl.shaderSource(fragmentShader, fsSource);
+      gl.compileShader(fragmentShader);
+      var shaderProgram = gl.createProgram();
+      gl.attachShader(shaderProgram, vertexShader);
+      gl.attachShader(shaderProgram, fragmentShader);
+      gl.linkProgram(shaderProgram);
+      gl.useProgram(shaderProgram);
+
+      var positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      var positions = [
+          -1.0,  1.0,
+          1.0,  1.0,
+          -1.0, -1.0,
+          1.0, -1.0,
+      ];
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+      var positionAttributeLocation = gl.getAttribLocation(shaderProgram, "position");
+      gl.enableVertexAttribArray(positionAttributeLocation);
+      gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+
+      var timeUniformLocation = gl.getUniformLocation(shaderProgram, "iTime");
+
+      var startTime = performance.now();
+      function render() {
+          var currentTime = performance.now();
+          var elapsedTime = (currentTime - startTime) / 1000.0;
+          gl.uniform1f(timeUniformLocation, elapsedTime);
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+          requestAnimationFrame(render);
+      }
+      render();
+    }
+    initCanvas();
+    </script>
   </body>
 </html>
