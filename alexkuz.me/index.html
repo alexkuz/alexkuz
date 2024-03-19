@@ -17,6 +17,19 @@
  
       body {
         color: #FFFFFF;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        padding: clamp(1rem, 5vw, 5rem);
+        background-color: #001f3f;
+        font-family: 'Jost', sans-serif;
+      }
+
+      main {
+        padding: 3rem;
+        box-sizing: border-box;
+        height: 100%;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -24,20 +37,13 @@
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
         flex-direction: column;
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 3rem;
-        padding: clamp(1rem, 5vw, 5rem);
-        box-sizing: border-box;
         -webkit-box-align: start;
         -ms-flex-align: start;
         align-items: flex-start;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        background-color: #001f3f;
-        font-family: 'Jost', sans-serif;
+        padding-bottom: 10rem;
       }
       
       h1 {
@@ -61,7 +67,7 @@
         display: -ms-flexbox;
         display: flex;
         gap: 1rem;
-        margin-bottom: 20vh;
+        margin-bottom: 2rem;
       }
 
       .icon-link, .icon-link:visited {
@@ -90,6 +96,15 @@
         transform: scale(1.1);
       }
 
+      .link {
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
       #bg-canvas {
         z-index: -1;
         position: absolute;
@@ -102,6 +117,7 @@
   </head>
   <body>
     <canvas id="bg-canvas"></canvas>
+    <main>
     <h1>Alexander Kuznetsov</h1>
     <p>Frontend developer</p>
     <svg role="presentation" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">
@@ -136,6 +152,8 @@
       <a class="icon-link" href="mailto:alexkuz@gmail.com" aria-label="email"><svg class="icon icon-mail" role="presentation"><use xlink:href="#icon-mail" /></svg></a>
       <a class="icon-link" href="https://bsky.app/profile/alexkuz.me" aria-label="bluesky"><svg class="icon icon-bluesky" role="presentation"><use xlink:href="#icon-bluesky" /></svg></a>
     </div>
+      <a class="link" href="/Profile.pdf">CV →</a>
+    </main>
     <script type="text/javascript">
     function initCanvas() {
      var canvas = document.getElementById("bg-canvas");
