@@ -281,7 +281,16 @@
           // add noise to prevent gradient banding
           float noise = rand(int(uv.x*10000.), int(uv.y*10000.)) * .1;
 
+          float stars = rand(
+            int((uv.x + iTime * 0.001) * 800. + iTime * 0.1),
+            int((uv.y - iTime * 0.001) * 800. + iTime * 0.1)
+          );
+
           vec3 col = mix(col1top, col1bottom, 1. - uv.y + noise);
+
+          if (stars > 1.0 - 0.0003 * uv.y) {
+            col += vec3(.1 + uv.y * .4 - (1. - stars) * 500.);
+          }
 
           col = mountainRow(col, col2, uv.x + time, uv.y / 0.22 - 1.2);
 
