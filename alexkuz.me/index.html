@@ -200,45 +200,50 @@
         in vec2 texCoord;
         out vec4 fragColor;
         uniform float iTime;
+        uniform vec2 iResolution;
 
-        const vec3 col1top = vec3(0./255., 31./255., 63./255.);
+        const vec3 col1top    = vec3(0./255.,  31./255., 63./255.);
         const vec3 col1bottom = vec3(30./255., 60./255., 90./255.);
-        const vec3 col2 = vec3(0./255., 25./255., 55./255.);
-        const vec3 col3 = vec3(0./255., 15./255., 45./255.);
-        const vec3 col4 = vec3(0./255., 10./255., 35./255.);
+        const vec3 col2       = vec3(0./255.,  25./255., 55./255.);
+        const vec3 col3       = vec3(0./255.,  15./255., 45./255.);
+        const vec3 col4       = vec3(0./255.,  10./255., 35./255.);
 
-        float hash( int n ) 
+        // https://iquilezles.org/articles/fbm/
+
+        float hash(int n) 
         {
           n = (n << 13) ^ n;
-            n = n * (n * n * 15731 + 789221) + 1376312589;
-            return -1.0 + 2.0 * float( n & ivec3(0x0fffffff))/float(0x0fffffff);
+          n = n * (n * n * 15731 + 789221) + 1376312589;
+          return -1.0 + 2.0 * float(n & ivec3(0x0fffffff)) / float(0x0fffffff);
         }
 
-        float gnoise( in float p )
+        float gnoise(in float p)
         {
-            int   i = int(floor(p));
-            float f = fract(p);
-            float u = f*f*(3.0-2.0*f);
-            return mix( hash(i+0)*(f-0.0), 
-                        hash(i+1)*(f-1.0), u);
+          int   i = int(floor(p));
+          float f = fract(p);
+          float u = f * f * (3.0 - 2.0 * f);
+          return mix(
+            hash(i + 0) * (f - 0.0), 
+            hash(i + 1) * (f - 1.0),
+            u
+          );
         }
 
-        float fbm( in float x, in float G )
-        {    
-            x += 26.06;
-            float n = 0.0;
-            float s = 1.0;
-            float a = 0.0;
-            float f = 1.0;    
-            for( int i=0; i<8; i++ )
-            {
-                n += s*gnoise(x*f);
-                a += s;
-                s *= G;
-                f *= 2.0;
-                x += 0.31;
-            }
-            return n;
+        float fbm(in float x, in float G)
+        {
+          x += 26.06;
+          float n = 0.0;
+          float s = 1.0;
+          float a = 0.0;
+          float f = 1.0;
+          for(int i = 0; i < 8; i++) {
+              n += s * gnoise(x * f);
+              a += s;
+              s *= G;
+              f *= 2.0;
+              x += 0.31;
+          }
+          return n;
         }
 
         vec3 mountainRow(vec3 col1, vec3 col2, float x, float y) {
@@ -249,21 +254,42 @@
             return mix(col1, col2, y1);
         }
 
+        // https://stackoverflow.com/questions/35376941/a-pseudo-random-number-generator-based-on-2-inputs
+        float rand(int x, int y) {
+          x = x * 3266489917 + 374761393;
+          x = (x << 17) | (x >> 15);
+
+          x += y * 3266489917;
+
+          x *= 668265263;
+          x ^= x >> 15;
+          x *= 2246822519;
+          x ^= x >> 13;
+          x *= 3266489917;
+          x ^= x >> 16;
+
+          return float(x & 0x00ffffff) / float(0x1000000);
+        }
+
         void main()
         {
-            vec2 uv = texCoord;
+          vec2 uv = texCoord;
+          uv.x *= iResolution.x / iResolution.y;
 
-            float time = 0.005 * iTime;
+          float time = 0.005 * iTime;
 
-            vec3 col = mix(col1top, col1bottom, 1.-uv.y);
+          // add noise to prevent gradient banding
+          float noise = rand(int(uv.x*10000.), int(uv.y*10000.)) * .1;
 
-            col = mountainRow(col, col2, uv.x + time, uv.y / 0.22 - 1.2);
+          vec3 col = mix(col1top, col1bottom, 1. - uv.y + noise);
 
-            col = mountainRow(col, col3, uv.x + 11. + 3. * time, uv.y / 0.3 - 0.3);
+          col = mountainRow(col, col2, uv.x + time, uv.y / 0.22 - 1.2);
 
-            col = mountainRow(col, col4, uv.x + 29. + 5. * time, uv.y / 0.5 + .4);
-            
-            fragColor = vec4(col,1.0);
+          col = mountainRow(col, col3, uv.x + 11. + 3. * time, uv.y / 0.3 - 0.3);
+
+          col = mountainRow(col, col4, uv.x + 29. + 5. * time, uv.y / 0.5 + .4);
+          
+          fragColor = vec4(col,1.0);
         }
       `;
       var vertexShader = gl.createShader(gl.VERTEX_SHADER);
@@ -293,9 +319,10 @@
       gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
       var timeUniformLocation = gl.getUniformLocation(shaderProgram, "iTime");
+      var resolutionUniformLocation = gl.getUniformLocation(shaderProgram, "iResolution");
 
       var counter = 0;
-      var timeSeed = (Date.now() / 1000) % 10000000;
+      var timeSeed = (performance.timeOrigin / 1000) % (60 * 60 * 24);
 
       function render() {
           if (counter++ % 5 !== 0) {
@@ -304,11 +331,13 @@
           }
           var currentTime = timeSeed + performance.now() / 1000;
           gl.uniform1f(timeUniformLocation, currentTime);
+          gl.uniform2f(resolutionUniformLocation, window.innerWidth * dpr, window.innerHeight * dpr);
           gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
           requestAnimationFrame(render);
       }
       render();
     }
+
     initCanvas();
     </script>
   </body>
