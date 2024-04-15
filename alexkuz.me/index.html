@@ -285,6 +285,44 @@
           return float(x & 0x00ffffff) / float(0x1000000);
         }
 
+        vec2 hash2(vec2 p)
+        {
+          p = vec2(
+            dot(p,vec2(127.1,311.7)),
+            dot(p,vec2(269.5,183.3))
+          );
+          return fract(sin(p)*18.5453);
+        }
+
+        float voronoi(in vec2 x)
+        {
+          vec2 n = floor(x);
+          vec2 f = fract(x);
+
+          vec3 m = vec3(8.0);
+          for(int j = -1; j <= 1; j++) {
+            vec2 g = vec2(-1., float(j));
+            vec2 o = hash2(n + g);
+            vec2 r = g - f + (0.5 + 0.5 * sin(6.2831 * o));
+            float d = dot(r, r);
+            if (d < m.x) m = vec3(d, o);
+
+            g = vec2(0., float(j));
+            o = hash2(n + g);
+            r = g - f + (0.5 + 0.5 * sin(6.2831 * o));
+            d = dot(r, r);
+            if (d < m.x) m = vec3(d, o);
+
+            g = vec2(1., float(j));
+            o = hash2(n + g);
+            r = g - f + (0.5 + 0.5 * sin(6.2831 * o));
+            d = dot(r, r);
+            if (d < m.x) m = vec3(d, o);
+          }
+
+          return m.y + m.z;
+        }
+
         void main()
         {
           vec2 uv = texCoord;
@@ -306,11 +344,23 @@
             col += vec3(.1 + uv.y * .4 - (1. - stars) * 500.);
           }
 
-          col = mountainRow(col, col2, uv.x + time, uv.y / 0.22 - 1.2);
+          vec2 p = vec2(uv.x + time, uv.y);
+          float c = voronoi(40. * vec2(mod(p.x, 100.), p.y));
+          vec3 texture = vec3(0.0025) * cos(c * 6.2831);
 
-          col = mountainRow(col, col3, uv.x + 11. + 3. * time, uv.y / 0.3 - 0.3);
+          col = mountainRow(col, col2 + texture, p.x, p.y / 0.22 - 1.2);
 
-          col = mountainRow(col, col4, uv.x + 29. + 5. * time, uv.y / 0.5 + .4);
+          p = vec2(uv.x + 11. + 3. * time, uv.y);
+          c = voronoi(20. * vec2(mod(p.x, 100.), p.y));
+          texture = vec3(0.004) * cos(c * 6.2831);
+
+          col = mountainRow(col, col3 + texture, p.x, p.y / 0.3 - 0.3);
+
+          p = vec2(uv.x + 29. + 5. * time, uv.y);
+          c = voronoi(10. * vec2(mod(p.x, 100.), p.y));
+          texture = vec3(0.008) * cos(c * 6.2831);
+
+          col = mountainRow(col, col4 + texture, p.x, p.y / 0.5 + .4);
           
           fragColor = vec4(col,1.0);
         }
