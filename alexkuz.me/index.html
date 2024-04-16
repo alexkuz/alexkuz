@@ -199,6 +199,9 @@
      canvas.width = window.innerWidth * dpr;
      canvas.height = window.innerHeight * dpr;
 
+     var timeTravel = false;
+     var timeShift = 0;
+
       var gl = canvas.getContext("webgl2");
       var vsSource = `#version 300 es
         in vec2 position;
@@ -285,6 +288,7 @@
           return float(x & 0x00ffffff) / float(0x1000000);
         }
 
+        // https://www.shadertoy.com/view/MslGD8
         vec2 hash2(vec2 p)
         {
           p = vec2(
@@ -402,13 +406,30 @@
             requestAnimationFrame(render);
             return;
           }
-          var currentTime = timeSeed + performance.now() / 1000;
+
+          if (timeTravel) {
+            timeShift += 2;
+          } else if (timeShift > 0) {
+            timeShift = Math.max(0, timeShift - 2);
+          }
+
+          var currentTime = timeSeed + timeShift + performance.now() / 1000;
           gl.uniform1f(timeUniformLocation, currentTime);
           gl.uniform2f(resolutionUniformLocation, window.innerWidth * dpr, window.innerHeight * dpr);
           gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
           requestAnimationFrame(render);
       }
       render();
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 't') {
+          timeTravel = true;
+        }
+      });
+
+      window.addEventListener('keyup', () => {
+        timeTravel = false;
+      });
     }
 
     initCanvas();
