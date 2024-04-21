@@ -1,0 +1,98 @@
+body {
+  color: #FFFFFF;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 80px;
+  padding: 0;
+  background-color: #001f3f;
+  font-family: 'Jost', sans-serif;
+}
+
+main {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20vh max(5vh, 30px);
+  overflow-y: auto;
+}
+
+h1 {
+   margin: 0;
+  font-size: 2em;
+  line-height: 1.2em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+p {
+  font-size: 1.5em;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  margin-block: 10px 5px;
+}
+
+.icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.icon-link, .icon-link:visited {
+  color: #fafafa;
+  -webkit-transition: color 0.2s ease-out;
+  transition: color 0.2s ease-out;
+  width:  2em;
+  width: clamp(1.8em, 5vw, 2em);
+  height:  2em;
+}
+
+.icon-link:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.icon {
+  display: inline-block;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  -webkit-transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+
+.icon-link:hover > .icon {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+#bg-canvas {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}

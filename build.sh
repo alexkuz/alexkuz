@@ -10,4 +10,4 @@ npx webfont-dl "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&displ
 	--css-rel "fonts" \
 	-o alexkuz.me/fonts/font.css
 
-npx html-inline-external --src index.html --dest alexkuz.me/index.html 
+npx html-inline-external --src src/index.html --dest alexkuz.me/index.html 
