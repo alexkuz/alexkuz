@@ -104,14 +104,51 @@ p {
   left: 0;
   width: 100vw;
   height: 100vh;
-}</style>
+}
+
+#clock-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  display: block;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  bottom: 16px;
+  right: 16px;
+  -webkit-transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+
+#clock-hands {
+  visibility: hidden;
+}
+
+#clock-button:hover {
+  transform: scale(1.1);
+}
+
+
+#second-hand {
+  transform-origin: 16px 16px;
+}
+
+#minute-hand {
+  transform-origin: 16px 16px;
+}
+
+#hour-hand {
+  transform-origin: 16px 16px;
+}
+
+</style>
     <style>@font-face {
   font-family: 'Jost';
   font-style: normal;
   font-weight: 300;
   src: url("data:application/x-font-woff2;base64,d09GMgABAAAAABCoABMAAAAAGagAABBAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbgwocLj9IVkFSgS0GYD9TVEFUgTgnLgCBFC9+EQgKizSIYwssADCQOAE2AiQDVAQgBYh8ByAb3xZVpCb1QKaqGQlq58GXsizLMhzXDpLUPhSlfWla+zGM9mdZ7Xjgudy/Qcc9X0MP/CjMor0UIonGAizAvPyn/X3nzsyXmDayMcFJqEpM66akUDfSUSWA/fn/7K/e+WkAtWkOiVo2ONHNcesorZTFuKFDvhN2+h9hKxXj00j/sQpjMkdwlW7vsGZYO3Xqz+/PH3zexCiXwEjGt+SufNvmDH/BJf35v59/7xm9sEVbN0XWtZWtOUEHOpxVfMsC+kI1/P7yTUgn8h/ACf/6olHdoAi1xbmELUT4h/3Z+5OY1gDWhaYDGxiFUo20i2CS2/lgXD4RqaxqJqavRP5QpS1BocFpycjwbb5a274jXkW8cYtYFLN2iX65ISXSGEKmvvE/5u7ft4mh2qGtIZoogVCg8oibN2tIEqvEWcM8mYSm8v/v52ae1EowSWGrZA7R3xvSODRKJ5nrxO73u8u43HObykyhFMq1k2ILKuX7w7/0BOT///76fa5Gb/AhVyUhT/0uVejOPwsVbkQC+Ga9mdRpClCBYFgebgeEGWk0PU7rTzgVyAWyG0Y5jpLUdl4BIqjfb3tv5mfEI90TVbt2PNOJeI3UxK/Yw/5q3t/ds5yIBkUigvGSmp0l/s/+3vsmNKKJyA/AbwPjP6tzSFSVQltoxH37pfYmQArY4YSNilX35+/B/rkN0QYYC6iJngdUxOSqa3RlhdPEQto+xG3skXbuhYgTM/qDAGgRljKQx9be+QBqUWVMbdZqE4x2DyuVB5HFea/oNTLcrbBGZkcLsBSU1luuqRT0TxxqzXzpp7fg8kLIIZ4WegqmrXaN9DEZZlrL/wxu8xp+nEHaI//yfuk4/0JPA8eM9sOQp+wJ78Q9sIInZHx3BurIL61gm0QmvseAli8dkzgMhta3xNgnFXAhKipyaGCAAiZYoQU50hIwJ5PKVEjCbCWz2YEqMiigyNfCIYPKJyxRo56H5DVpKuSQH4WErCzeVzWwG87JjgXLtPN4TEOQ1ZBt3R9hFtgeTZARUUUmcUkpYRFpSSEmxESU2ZlLcyeebAaokxnQTnDGZDjE2xgO3mj5nbjbaIfLpcuuc8PNdUveim79r5J39SfyLU0y3w7FruYdq2OndOpdRKVKECwcrEMGsEXWtiEx2Ar1KAeykyB6B+wrN9jxLOPscYYOTTiloOnY8htVzSIfTOTB2gjr6JE53FFxIrOSAVtPwN5RbGI8OWxJn6FDdxHoTvTTB2VVCCpUblSXAaY2yurdm03EcTsJkVGWDnEsIwWtm1RidZUq+HdYY4+ABXXmKAMPahNfwAHK9h08p1BeqlHPRa+D67nz2vlTap9EcG17xquj2smZpkcBhfzEha0oNAgRmLl1L4zg0CKoiodfRLEKNeo06dCl54SZhQGqwxu03AGOsI0tbGAFy5jEOHLIIoM0UvzmqEmajeK3WqGiFpyEJKFMaw3XIocW8yzEW95CsJVkJGw92UiRM4bspJL/OthBGvPcKHeSTvBocpGBpKwnN5lw88jj5Uu43BVO+5Y0IODY9gtZE19/QRwVv0hJPEUjsSD8iyOhLsZCCLk8mBMeeDwDRszjUdov1IqhiGkYI0INU3Kxwgy51UbOFZfm/74I9PMhBU9/8eXv93dQ+/n4INCfDZx+v+PLv5+ICmIkLy6OIaiZi2U3NZNrrY1pUnsnKTK/fCLQjxWcH5Yk33C7vUHl3Pk1nPxwNXywvyPQzqxPIAG5fmnuJ5nEAT2bqe4L1n8JVYZBAailfTIrX67w3TgPDpYHvFxN6olsFAJ7vluAiKgiC8clt0wBssY5W0+wRB859PWxOAavhPKp7GoF4aJLJBQkIjcr1vL7O4D64AjQKOI8evGGwfrlp+liN4dRR4BepJ7jx2psl/O9eBCeH6wQavus5cPTBADEMIagRtDKqhUpUwMw/ue3fo8vf1JiCVI03hoMk0JBci5EzkZam6gghlNA46NTGpMf/gwLu82/yJx1Z1HrXxsYpfz2iWGLRewvdPFn+h7qNBc8I83UyRajbtkiqpuRwq5W2kNhxsT3F+oswxb7JFDphLxQm8Ar4Ocfh96A5/UQeqOa4dr+ds0g3wYEzr75yJx1ZxGQW2OX0WI2nCMWtE0Z83ShtNck4BjsVWy6szjA/RfQ7zWllzP4X2R6q3Ij3/8smxfh/cQr5Po4bZugsFNIL+VZiGg6WyGtKgQJOxGHsCMEqbStkKbDi8jYsI3GrjbROLBMxoFNtGq2jcaGgV8M6VJBeuaSmynwILVz6QFNrdhr40i4q2RjQ5H164JmUTR8TDnQroOgXqMO9no0cKcJYOYolGwrohHLzDISyXafGOIOeKN3AZz4xsOU4RGqF6ulApud0KDZUnG5LfCgGXLCZgscdcl4fjdfLHbzeX6ZjOdzC8Rit4DnA63L6eze9prbPNirt+rTetlgwC+D03q9tVdvhqM+tcDnZguZTvb2Bwnd70y/HrgLzBWFdsS8UPEsT2pZ9BuejDMLpYX7LYmPJvGkIyZ+l5013HmywOI78NJR48cJw4vVsiH8hJE3sX0283nN5FQZpFs1wNTdr+618XK0AvpzgiwjnurwSpy8fm90xz50IuLw7OHsITpqGbUA/W16O70d3bicfI0OHVePozt3w0uEeUTSNZtoInUNJ8CtGlDKe5vxBJfeT7CDbpiFFThCRqrqyDvyH6Wozlevoj7QwZp4zQC9gL5C/xrANqILQiigpWfsjxT6+97z9i2dQL28Jp2tzcN+De22fHwawCjCUI7Caw0ppo7jnaY8RUNAPxhAD+J8M4ARdGsRdIyih4ZODg3/saqV8W6gdyMTC73QhQIKRAASsgAByuv1g0t4fX4BAAD4xZCam2v/AQAAnl8BLjcXe7toHIfH44nkit8/HhARO9QiSFLrpdW1XC53UC7lYRyp5okeYi7o94eSSbv6AgBe5elIhvz+YA6xd69AKoS6cKj1NzWRyWSn5itdOp1O75LxBW0AYP6LV0opbdtLIcIDHwR8gDWCJElz+Hj4aHgcKoch9KFmdLPZ/HtGwiTmvqksRHhQBYFGAFbrQuHu7GmsT+3lk8iGY2BSvEEexpDkyL5ag1e5DA9DOTgjMXyPDREelLlQ89jsw7ThO2vCOulTu5msMo6uCsyKt1QFIryWTbIcbBM8jtDBGIyfLPheu/r/KzdrtfJ3mVVZ9TFhYaxSPh+fK9/na1//1XLZ6K/z+Xzb29uXX38trQ6nxL5bIpFIJOBj9rPZbAo8w1Orv7Pl4s42NjYOXqJFQggJyO9ywjcOqVyqaPB2W1STXssfws8P0wIAVkCd9g8RDb5Cc3WzWGpb6urKzB9i1+UyxlzGJsoKrEy+vVxcXFy/yHV4bbcFUZSoVbt0Okt7Op0OWrY3lhdKpWJp84TYN0Gh1trtjoYID84V6P+J4nK3nN8YdOKv0JHTGvEvSCrDe+3ovaVztbR8GBVi/ozxK+CCZIioTWhOvOWodm8ddGRRSr010H0L8/PbWXr6Dj3C33IFIyRhjCWEcKX8aaKZhrjiESEwkkGbJ+CcZEiv/GgXElcr/2ZnVyHoz2OMpTi3o4VBgxtUcANA6r8cSU5YsY+UfWVl2ZYu6CdjY2MTkzzPA4KYTCYTqACMVkIMVfggyQgP8G8vzM/vyVWTX3Jysp/2O1etulwdvsFB/sqgtEZNreUdqbSqt++/wTOE1vf29Yokf5tfCGE8IhyIrG9ARH16iIPQy2WTH1TJ1ghHpE9CXFxcgKm+7+M4LlAwGRKtUo/of11nEG2CC3iqDGhh0GABggUAaSXrLNggu+UNvCvgiPyKFgYN6UC47g8ZaCXrLOv1czMr7PjtsEBJ1wAbJJIlRTra6JhlpCOdUhq8FPiIHnd2jqBeL8QlvCsEC3dtegSXJaWshgoiQ8fIrwDP84mjCREnKXEHl5MEcSLFWN/wPx+dVhUD48u53sO5MXY5e8OKxSqfht/zC/ObADG/ZW1PXFgGYywjzMtW6G+HG5K9yIXVak00eCU3DMNJSZBeofo9ZaCTRCQlHtd/TU6uI9CVXVpaGm9No4VBQxmoUA4ACetsAzlyB+NCLBKNRiMxIR50j7lbG1nfFsuyW75srWsMLkiGvHVK+ymBVq3Nhwgv5oX5+bMy0MVTSsMs2xMQ79Dl0hKOQiCiEMhLSnesQoNrBkNEFuJqvbKCSslIqwkhRNMWoGOMFQyGCjjn6Q64Wfw5PDx3RRMMGhLg3msFiH4jcGltz8U5olGW3YsgKIJtsp2KyJp0ZkRPlC51uy/hDdY3PjzcWcs553V1paXl8ELSqucXq9WMWtXw8NDg4GCPhmqo/Q+YcdisfhezUafT6Q5BH7+5uRkvdfa4ToIZvJ/TNJuY6KTNNywyMtKbcm1xNL9pNuBtiW9KRoz6fP6MbjQvKcnb8TNXrNVqdV2DTvPz93dKT3BpaWk3QGc97TeHpudUI2JT12BjbWNjY35Gor6V0zB/LzMyarVivtyoeclmTU5ZUZbALftTt3fDkiSJQMONUj0vxu3b29tb65MOlkXXvyKlEgkYE6tNw1lhYZ4u7Wg5l/OleCacWVjXG9Y5kL9E8EYyPAsTOVxnNJ3IreRFqneloxoI+RP8W2xgOw94zAUkJqf4sC8uLtovraHlEkKvVCxh/LjzA2PdeOSH87NK+fb2//+PfGfgVxsOh00QtaTu3/vlyx+y8gO4GR6ChGotLaPvhifiqZS8LqrUFRfhaBgyn/lBGnTftGDr5jigyPe9ibw6uYSN4SIsjcH6g1hvxyqLSJ2LSoodTW2gAb1FLnqLi+B8w/8wTBTj/7oGKZAdzbvIHh+n77+/SW7O9YZMTBTD9eE5jJDl2Bg7uRqC5Bu0F1Nyn0vfGU7G6puZuu9t7woOPz9P1oWqXR5WvSYH20U7m7/7b9l71uufAXO9XZhvGuJjd6c55//uv0Xv2U8wlvxMkgb+yerBYXqgEy/QlfJ1zV4gHUIcY0c9saDuDFpTMP+UpGLteMXgqJiBMh7Ae1Wv2AGo41M6H4QJdk4SZeBliE0n/geUKVLiZ1MJmxdUdDKZEyTwMOnIQIiJRBYMkhGyIcNIIQdy9INckKGTRCFYxIo7oEKAOgAJPNSOLEhQFXLAFwULcFMOCF4ClA2V/BDh2xmCeMiMwhAjHxQFXzihOBRIDSWg4wsloYQdlIKaYZSGilaUgYb8RlkogAbloMUC5aEEKVSAAPhY8bfF+w0jE6EkzQwoAQvXQqYzDKXp3HxAF8/DgTw5DBpUjVodAVF+DtMdH44kYs0QCMSqTaKGME0zWS5e8/dMABaNYVgwF3lKIzDOgpIcs7HdOZilTTP4TyOYLakTqgaRi9TpaVCUMPZH5sBpWIou1WXUroUlyJBBQ8sUrEEb+1lK0zaApOW3w7ElCcxlsJYtK80sYZpRluoNM6SwR56D4wC1WuFiLKxpS2Amq8MJ1i5PSqA+VAiNjEPCZ7UrUwCyTuo6W0cMpQecxqqFYcJSTjpinCkhEISoNSbStbAwAlK6XC4KUiapSv7Xul34nwUzTQ==") format("woff2"), 
-    url("fonts/jost-170b87715a82ae0c8297fae690eca5f0ab94e3ab.woff") format("woff"), 
-    url("fonts/jost-3f21a5ca916f949dd5312479251c92faa4d4d6e3.ttf") format("truetype");
+    url("fonts/jost-3b60cff670bbc3e8c2c3ede64dfd1e59ce9f343d.woff") format("woff"), 
+    url("fonts/jost-f55cee9d22a904177da90667af6e49a9d98b86c1.ttf") format("truetype");
 }
 
 @font-face {
@@ -135,7 +172,7 @@ void main() {
 }</script>
     <script id="fragment-shader" type="x-shader/x-fragment">#version 300 es
 #ifdef GL_ES
-precision highp float;
+precision mediump float;
 #endif
 
 uniform float u_time;
@@ -327,6 +364,16 @@ void main()
           <path d="M8 72h56a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8H8a8 8 0 0 0-8 8v56a8 8 0 0 0 8 8zm54-10H51.316V43.802c0-4.99-1.896-7.777-5.845-7.777-4.296 0-6.54 2.901-6.54 7.777V62H28.632V27.333H38.93v4.67s3.096-5.729 10.453-5.729c7.353 0 12.617 4.49 12.617 13.777V62zM16.35 22.794c-3.508 0-6.35-2.864-6.35-6.397C10 12.864 12.842 10 16.35 10c3.507 0 6.347 2.864 6.347 6.397 0 3.533-2.84 6.397-6.348 6.397zM11.032 62V27.333h10.736V62H11.033z"></path>
         </symbol>
     </svg>
+    <button id="clock-button" type="button" aria-label="forward time" aria-description="hold to fast forward time or press T" aria-pressed="false">
+      <svg id="clock" role="presentation" viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="15" fill="none" stroke="#FFFFFF" stroke-width="1"></circle>
+        <g id="clock-hands">
+          <path id="hour-hand" d="M 15 16 L 16 6 L 17 16 A 1 1 0 0 1 15 16" fill="#FFFFFF"></path>
+          <path id="minute-hand" d="M 15 16 L 16 2 L 17 16 A 1 1 0 0 1 15 16" fill="#FFFFFF"></path>
+          <path id="second-hand" d="M 16 16 L 16 3" stroke="#FFFFFF" stroke-width="0.5"></path>
+        </g>
+      </svg>
+    </button>
     <div class="icons">
       <a class="icon-link" href="https://github.com/alexkuz" aria-label="github"><svg class="icon icon-github" role="presentation"><use xlink:href="#icon-github"></use></svg></a>
       <a class="icon-link" href="https://twitter.com/_alexkuz_" aria-label="twitter"><svg class="icon icon-twitter" role="presentation"><use xlink:href="#icon-twitter"></use></svg></a>
@@ -336,14 +383,15 @@ void main()
     </div>
       <a class="link" href="/Profile.pdf">CV →</a>
     </main>
+    <script type="text/javascript">
+      window.timeTravel = false;
+      window.timeShift = 0;
+    </script>
     <script type="text/javascript">function initCanvas() {
   var canvas = document.getElementById("bg-canvas");
   const dpr = window.devicePixelRatio;
   canvas.width = window.innerWidth * dpr;
   canvas.height = window.innerHeight * dpr;
-
-  var timeTravel = false;
-  var timeShift = 0;
 
   var gl = canvas.getContext("webgl2");
   var vsSource = document.getElementById("vertex-shader").textContent;
@@ -388,13 +436,7 @@ void main()
       return;
     }
 
-    if (timeTravel) {
-      timeShift += 2;
-    } else if (timeShift > 0) {
-      timeShift = Math.max(0, timeShift - 2);
-    }
-
-    var currentTime = timeSeed + timeShift + performance.now() / 1000;
+    var currentTime = timeSeed + window.timeShift + performance.now() / 1000;
     gl.uniform1f(timeUniformLocation, currentTime);
     gl.uniform2f(
       resolutionUniformLocation,
@@ -405,19 +447,65 @@ void main()
     requestAnimationFrame(render);
   }
   render();
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "t") {
-      timeTravel = true;
-    }
-  });
-
-  window.addEventListener("keyup", () => {
-    timeTravel = false;
-  });
 }
 
 initCanvas();
+</script>
+    <script type="text/javascript">const hourHand = document.querySelector("#hour-hand");
+const minuteHand = document.querySelector("#minute-hand");
+const secondHand = document.querySelector("#second-hand");
+
+const timeDelta = 0.5;
+
+function render() {
+	const now = new Date(Date.now() + window.timeShift * 1000);
+	const hours = now.getHours();
+	const minutes = now.getMinutes();
+	const seconds = now.getSeconds();
+	const milliseconds = now.getMilliseconds();
+
+	const hourDeg = Math.round(30 * hours + 0.5 * minutes);
+	const minuteDeg = Math.round(6 * minutes + 0.1 * seconds);
+	const secondDeg = 6 * seconds + 0.006 * milliseconds;
+
+	hourHand.style.transform = `rotate(${hourDeg}deg)`;
+	minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+	secondHand.style.transform = `rotate(${secondDeg}deg)`;
+
+  if (window.timeTravel) {
+    window.timeShift += timeDelta;
+  } else if (window.timeShift > 0) {
+    window.timeShift = Math.max(0, window.timeShift - timeDelta);
+  }
+
+	window.requestAnimationFrame(render);
+}
+
+render();
+
+const clockButton = document.querySelector("#clock-button");
+
+document.querySelector("#clock-hands").style.visibility = "visible";
+
+clockButton.addEventListener("pointerdown", () => {
+	window.timeTravel = true;
+	clockButton.setAttribute("aria-selected", true);
+});
+
+clockButton.addEventListener("pointerup", () => {
+	window.timeTravel = false;
+	clockButton.setAttribute("aria-selected", false);
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.code === "KeyT") {
+    window.timeTravel = true;
+  }
+});
+
+window.addEventListener("keyup", () => {
+  window.timeTravel = false;
+});
 </script>
   
 

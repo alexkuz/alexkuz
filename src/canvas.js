@@ -4,9 +4,6 @@ function initCanvas() {
   canvas.width = window.innerWidth * dpr;
   canvas.height = window.innerHeight * dpr;
 
-  var timeTravel = false;
-  var timeShift = 0;
-
   var gl = canvas.getContext("webgl2");
   var vsSource = document.getElementById("vertex-shader").textContent;
   var fsSource = document.getElementById("fragment-shader").textContent;
@@ -50,13 +47,7 @@ function initCanvas() {
       return;
     }
 
-    if (timeTravel) {
-      timeShift += 2;
-    } else if (timeShift > 0) {
-      timeShift = Math.max(0, timeShift - 2);
-    }
-
-    var currentTime = timeSeed + timeShift + performance.now() / 1000;
+    var currentTime = timeSeed + window.timeShift + performance.now() / 1000;
     gl.uniform1f(timeUniformLocation, currentTime);
     gl.uniform2f(
       resolutionUniformLocation,
@@ -67,16 +58,6 @@ function initCanvas() {
     requestAnimationFrame(render);
   }
   render();
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "t") {
-      timeTravel = true;
-    }
-  });
-
-  window.addEventListener("keyup", () => {
-    timeTravel = false;
-  });
 }
 
 initCanvas();

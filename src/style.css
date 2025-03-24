@@ -96,3 +96,39 @@ p {
   width: 100vw;
   height: 100vh;
 }
+
+#clock-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  display: block;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  bottom: 16px;
+  right: 16px;
+  -webkit-transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+
+#clock-hands {
+  visibility: hidden;
+}
+
+#clock-button:hover {
+  transform: scale(1.1);
+}
+
+
+#second-hand {
+  transform-origin: 16px 16px;
+}
+
+#minute-hand {
+  transform-origin: 16px 16px;
+}
+
+#hour-hand {
+  transform-origin: 16px 16px;
+}
+
